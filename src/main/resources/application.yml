@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: catalogue-service
+  data:
+    mongodb:
+      uri: ${DATASOURCE_URL}
+      database: ${DATASOURCE_DATABASE}
+      password: ${DATASOURCE_PASSWORD}
+      username: ${DATASOURCE_USERNAME}
+
+server:
+  port: 80
+  servlet:
+    context-path: '/search'

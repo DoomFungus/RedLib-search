@@ -1,0 +1,62 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "redlib_search",
+      "image": "185366319753.dkr.ecr.eu-central-1.amazonaws.com/redlib_search:latest",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "name": "redlib_search-80-tcp",
+          "containerPort": 80,
+          "hostPort": 80,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "DATASOURCE_URL",
+          "value": "mongodb+srv://redlibmongodb.xtrw4b9.mongodb.net"
+        },
+        {
+          "name": "DATASOURCE_DATABASE",
+          "value": "RedLibMongoDB"
+        }
+      ],
+      "environmentFiles": [ ],
+      "mountPoints": [ ],
+      "volumesFrom": [ ],
+      "secrets": [ {
+        "name": "DATASOURCE_USERNAME",
+        "valueFrom": "arn:aws:secretsmanager:eu-central-1:185366319753:secret:MongoCreds-3KdB4b:username::"
+      },{
+        "name": "DATASOURCE_PASSWORD",
+        "valueFrom": "arn:aws:secretsmanager:eu-central-1:185366319753:secret:MongoCreds-3KdB4b:password::"
+      } ]
+    }
+  ],
+  "family": "RedLib",
+  "executionRoleArn": "arn:aws:iam::185366319753:role/ecsTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "volumes": [ ],
+  "requiresAttributes": [
+    {
+      "name": "com.amazonaws.ecs.capability.ecr-auth"
+    },
+    {
+      "name": "ecs.capability.execution-role-ecr-pull"
+    }
+  ],
+  "placementConstraints": [ ],
+  "requiresCompatibilities": [
+    "EC2"
+  ],
+  "cpu": "1024",
+  "memory": "512",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "tags": [ ]
+}
