@@ -10,6 +10,6 @@ import org.springframework.data.annotation.Id;
 @AllArgsConstructor
 public class Author {
     @Id
-    private Integer id;
+    private String id;
     private String name;
 }
