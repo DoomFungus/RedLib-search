@@ -1,4 +1,4 @@
-package edu.bht.ase.redlibsearch.model;
+package edu.bht.ase.redlib.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,16 +7,17 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document("reviews")
-public class Review {
+@Document("authors")
+public class Author {
     @Id
     private Integer id;
     private String name;
-    private String text;
-    private Integer rating;
     @DBRef
-    private Book book;
+    private List<Book> books = new ArrayList<>();
 }

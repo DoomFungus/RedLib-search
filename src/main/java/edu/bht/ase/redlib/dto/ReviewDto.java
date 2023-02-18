@@ -1,4 +1,4 @@
-package edu.bht.ase.redlibsearch.dto;
+package edu.bht.ase.redlib.dto;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

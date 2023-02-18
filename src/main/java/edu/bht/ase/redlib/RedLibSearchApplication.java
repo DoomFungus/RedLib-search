@@ -1,4 +1,4 @@
-package edu.bht.ase.redlibsearch;
+package edu.bht.ase.redlib;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

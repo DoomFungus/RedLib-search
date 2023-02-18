@@ -1,4 +1,4 @@
-package edu.bht.ase.redlibsearch.model;
+package edu.bht.ase.redlib.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,11 +13,13 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document("authors")
-public class Author {
+@Document("books")
+public class Book {
     @Id
     private Integer id;
     private String name;
+    private String summary;
     @DBRef
-    private List<Book> books = new ArrayList<>();
+    private List<Author> authors = new ArrayList<>();
+    private List<String> tags = new ArrayList<>();
 }

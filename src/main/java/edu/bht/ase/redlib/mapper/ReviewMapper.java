@@ -1,4 +1,4 @@
-package edu.bht.ase.redlibsearch.mapper;
+package edu.bht.ase.redlib.mapper;
 
 import edu.bht.ase.redlib.dto.ReviewDto;
 import edu.bht.ase.redlib.model.Review;
