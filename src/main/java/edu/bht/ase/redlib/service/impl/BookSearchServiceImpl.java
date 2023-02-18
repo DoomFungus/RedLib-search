@@ -16,7 +16,7 @@ import java.util.Collection;
 @RequiredArgsConstructor
 public class BookSearchServiceImpl implements BookSearchService {
     private final MongoTemplate mongoTemplate;
-    private final BookMapper bookMapper = BookMapper.INSTANCE;
+    private static final BookMapper bookMapper = BookMapper.INSTANCE;
 
     @Override
     public Collection<BookDto> findBooksByCriteria(SearchDto searchDto) {

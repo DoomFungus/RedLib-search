@@ -4,7 +4,7 @@ import edu.bht.ase.redlib.dto.SearchDto;
 import edu.bht.ase.redlib.model.SearchField;
 import org.springframework.data.mongodb.core.query.Criteria;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -12,12 +12,15 @@ import static edu.bht.ase.redlib.dto.SearchDto.SearchNodeType.CONTAINS;
 import static edu.bht.ase.redlib.dto.SearchDto.SearchNodeType.EQUALS;
 
 public class SearchCriteriaBuilder {
-    private static final Map<SearchDto.SearchNodeType, Function<Criteria[], Criteria>> combinerCriteriaMap = new HashMap<>();
+    private static final Map<SearchDto.SearchNodeType, Function<Criteria[], Criteria>> combinerCriteriaMap = new EnumMap<>(SearchDto.SearchNodeType.class);
 
     static {
         combinerCriteriaMap.put(SearchDto.SearchNodeType.AND, x -> new Criteria().andOperator(x));
         combinerCriteriaMap.put(SearchDto.SearchNodeType.OR, x -> new Criteria().orOperator(x));
         combinerCriteriaMap.put(SearchDto.SearchNodeType.NOR, x -> new Criteria().norOperator(x));
+    }
+
+    private SearchCriteriaBuilder() {
     }
 
     public static Criteria constructSearchCriteria(SearchDto searchDto) {
