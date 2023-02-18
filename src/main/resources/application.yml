@@ -3,12 +3,9 @@ spring:
     name: search-service
   data:
     mongodb:
-      uri: ${DATASOURCE_URL}
+      uri: ${DATASOURCE_URI}
       database: ${DATASOURCE_DATABASE}
-      password: ${DATASOURCE_PASSWORD}
-      username: ${DATASOURCE_USERNAME}
-
 server:
-  port: 80
+  port: 8082
   servlet:
     context-path: '/search'

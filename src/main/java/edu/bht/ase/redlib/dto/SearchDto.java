@@ -1,6 +1,7 @@
 package edu.bht.ase.redlib.dto;
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
@@ -13,9 +14,17 @@ public class SearchDto {
         SearchNodeType operation;
         List<SearchNode> children;
         String field;
+        String[] value;
     }
 
+    @RequiredArgsConstructor
     public enum SearchNodeType{
-        AND, OR, NOT, EQUALS, CONTAINS
+        AND(false),
+        OR(false),
+        NOR(false),
+        EQUALS(true),
+        CONTAINS(true);
+
+        public final boolean terminalNode;
     }
 }
