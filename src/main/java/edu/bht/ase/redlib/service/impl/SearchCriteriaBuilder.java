@@ -40,7 +40,7 @@ public class SearchCriteriaBuilder {
             SearchField searchField = SearchField.valueOf(node.getField());
             if (EQUALS.equals(node.getOperation())) {
                 if (searchField.isMultiple) {
-                    return Criteria.where(searchField.searchFieldName).is(node.getValue());
+                    throw new IllegalArgumentException(SearchExceptionCodes.SEARCH_CRITERIA_EQUALS_ILLEGAL);
                 } else return Criteria.where(searchField.searchFieldName).is(node.getValue()[0]);
             } else if (CONTAINS.equals(node.getOperation())) {
                 if (searchField.isMultiple) {
