@@ -1,16 +1,19 @@
 package edu.bht.ase.redlib.dto;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 public class SearchDto {
     private SearchNode top;
 
-    @Data
-    public static class SearchNode{
+    @Getter
+    @Setter
+    public static class SearchNode {
         SearchNodeType operation;
         List<SearchNode> children;
         String field;
@@ -18,7 +21,7 @@ public class SearchDto {
     }
 
     @RequiredArgsConstructor
-    public enum SearchNodeType{
+    public enum SearchNodeType {
         AND(false),
         OR(false),
         NOR(false),
