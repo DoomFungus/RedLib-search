@@ -1,6 +1,8 @@
 package edu.bht.ase.redlib.service.impl;
 
 import edu.bht.ase.redlib.dto.SearchDto;
+import edu.bht.ase.redlib.exception.codes.SearchExceptionCodes;
+import edu.bht.ase.redlib.exception.ex.IllegalArgumentException;
 import edu.bht.ase.redlib.model.SearchField;
 import org.springframework.data.mongodb.core.query.Criteria;
 
@@ -43,8 +45,8 @@ public class SearchCriteriaBuilder {
             } else if (CONTAINS.equals(node.getOperation())) {
                 if (searchField.isMultiple) {
                     return Criteria.where(searchField.searchFieldName).all((Object[]) node.getValue());
-                } else throw new RuntimeException("Trying to perform contains on no-multiple field");
-            } else throw new RuntimeException("Not implemented");
+                } else throw new IllegalArgumentException(SearchExceptionCodes.SEARCH_CRITERIA_CONTAINS_ILLEGAL);
+            } else throw new UnsupportedOperationException();
         }
     }
 }
