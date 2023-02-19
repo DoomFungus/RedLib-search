@@ -32,21 +32,29 @@ public class SearchCriteriaBuilder {
 
     private static Criteria constructCriteriaFromNode(SearchDto.SearchNode node) {
         if (!node.getOperation().terminalNode) {
-            var childrenCriteria = node.getChildren()
-                    .stream()
-                    .map(SearchCriteriaBuilder::constructCriteriaFromNode).toArray(Criteria[]::new);
-            return combinerCriteriaMap.get(node.getOperation()).apply(childrenCriteria);
+            return constructCriteriaFromNonTerminalNode(node);
         } else {
-            SearchField searchField = SearchField.valueOf(node.getField());
-            if (EQUALS.equals(node.getOperation())) {
-                if (searchField.isMultiple) {
-                    throw new IllegalArgumentException(SearchExceptionCodes.SEARCH_CRITERIA_EQUALS_ILLEGAL);
-                } else return Criteria.where(searchField.searchFieldName).is(node.getValue()[0]);
-            } else if (CONTAINS.equals(node.getOperation())) {
-                if (searchField.isMultiple) {
-                    return Criteria.where(searchField.searchFieldName).all((Object[]) node.getValue());
-                } else throw new IllegalArgumentException(SearchExceptionCodes.SEARCH_CRITERIA_CONTAINS_ILLEGAL);
-            } else throw new UnsupportedOperationException();
+            return constructCriteriaFromTerminalNode(node);
         }
+    }
+
+    private static Criteria constructCriteriaFromNonTerminalNode(SearchDto.SearchNode node){
+        var childrenCriteria = node.getChildren()
+                .stream()
+                .map(SearchCriteriaBuilder::constructCriteriaFromNode).toArray(Criteria[]::new);
+        return combinerCriteriaMap.get(node.getOperation()).apply(childrenCriteria);
+    }
+
+    private static Criteria constructCriteriaFromTerminalNode(SearchDto.SearchNode node){
+        SearchField searchField = SearchField.valueOf(node.getField());
+        if (EQUALS.equals(node.getOperation())) {
+            if (!searchField.isMultiple) {
+                return Criteria.where(searchField.searchFieldName).is(node.getValue()[0]);
+            } else throw new IllegalArgumentException(SearchExceptionCodes.SEARCH_CRITERIA_EQUALS_ILLEGAL);
+        } else if (CONTAINS.equals(node.getOperation())) {
+            if (searchField.isMultiple) {
+                return Criteria.where(searchField.searchFieldName).all((Object[]) node.getValue());
+            } else throw new IllegalArgumentException(SearchExceptionCodes.SEARCH_CRITERIA_CONTAINS_ILLEGAL);
+        } else throw new UnsupportedOperationException();
     }
 }
