@@ -18,6 +18,16 @@ It's sister repository containing catalogue microservice can be found [here](htt
 
 The purpose of this system is to provide a simple way to catalogue and search books as part of larger application, such as an online library or a bookstore.
 
+Running the project:
+1. Download sources
+2. Compile and package the sources
+3. Use dockerfile to create a docker container
+4. Run both microservices in docker containers
+
+For packaging a project and running containers you need to provide the  MongoDB datasource. Use DATASOURCE_URI env variable for providing URI, and DATASOURCE_DATABASE for providing database name.
+
+By default, catalogue microservice will be listening on port 8081, and search on on 8082
+
 ### 1 UML
 As part of the documentation, 3 diagrams have been created:
 - The [use case diagram](https://github.com/DoomFungus/RedLib-catalogue/blob/master/documentation/diagrams/usecase-redlib.png) shows scenarios in which system can be used as well as involved actors. Relevant PlantUML markup can be found [here](https://github.com/DoomFungus/RedLib-catalogue/blob/master/documentation/diagrams/usecase.txt)
@@ -30,6 +40,7 @@ As part of design process, the following domain diagram was created:
 [Domain Diagram](https://github.com/DoomFungus/RedLib-catalogue/blob/master/documentation/diagrams/DDD.png)
 
 ### 3 Event Storming
+Event storming diagram can be found [here](https://github.com/DoomFungus/RedLib-catalogue/blob/master/documentation/diagrams/event_storming.png), and core domain chart can be found [here](https://github.com/DoomFungus/RedLib-catalogue/blob/master/documentation/diagrams/core_domain_chart.png)
 
 ### 4 Metrics
 
@@ -39,7 +50,13 @@ SonarQube is used in the project for evaluation, vulnerability detection and met
 
 ### 5 Clean Code Development
 
-_in progress_
+- [Clear function and parameter names](https://github.com/DoomFungus/RedLib-catalogue/blob/master/src/main/java/edu/bht/ase/redlib/service/impl/BookServiceImpl.java#L25)
+- [Exception messages should provide enough information](https://github.com/DoomFungus/RedLib-catalogue/blob/master/src/main/java/edu/bht/ase/redlib/exception/codes/CatalogueExceptionCodes.java#L9)
+- [Unit tests should check only 1 condition, it should be reflected in test name](https://github.com/DoomFungus/RedLib-catalogue/blob/master/src/test/java/edu/bht/ase/redlib/unittests/service/BookServiceTest.java#L54) \(Not necessarily 1 assert, but 1 logical condition)
+- [Literals, such as error messages, should be reusable](https://github.com/DoomFungus/RedLib-catalogue/blob/master/src/main/java/edu/bht/ase/redlib/exception/codes/CatalogueExceptionCodes.java#L9)
+- [Aspect logic, such as top-level exception handling, should be decoupled from business logic](https://github.com/DoomFungus/RedLib-catalogue/blob/master/src/main/java/edu/bht/ase/redlib/exception/ExceptionHandlerAdvice.java#L18)
+
+Clean Code Cheatsheet can be found [here](https://github.com/DoomFungus/RedLib-catalogue/blob/master/documentation/ccd.md)
 
 
 ### 6 Build Management
@@ -73,5 +90,16 @@ To give more flexibility in searching books, a simple JSON-based DSL was created
 
 ### 10 Functional Programming
 
-Minor application of functional-style programming can be found [here](https://github.com/DoomFungus/RedLib-catalogue/blob/master/src/main/java/edu/bht/ase/redlib/service/impl/BookServiceImpl.java#L31)
+[Use final data structures](https://github.com/DoomFungus/RedLib-catalogue/blob/master/src/main/java/edu/bht/ase/redlib/exception/ex/AbstractException.java#L11)
+[Use side effect-free functions](https://github.com/DoomFungus/RedLib-search/blob/master/src/main/java/edu/bht/ase/redlib/service/impl/SearchCriteriaBuilder.java#L33)
+[Use higher-order finctions](https://github.com/DoomFungus/RedLib-search/blob/master/src/main/java/edu/bht/ase/redlib/service/impl/SearchCriteriaBuilder.java#L45)
+
+### 11 IDE
+Intellij IDEA was used during development of this project
+  
+The most used shortcuts:
+- ```cmd + f``` (find)
+- ```cmd + r``` (replace) 
+- ```option + c/v/x``` (copy/paste/cut)
+- ```cmd + /``` (comment (out))  
 
